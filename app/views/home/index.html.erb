@@ -1,4 +1,59 @@
-<h3>Home</h3>
-<% @users.each do |user| %>
-  <p>User: <%=link_to user.name, user %></p>
-<% end %>
+<div class="navbar navbar-inverse" style="width:inherit;">
+	<div id="Carousel" class="carouselSlide">
+  <div class="carousel-inner">
+   <a href="/movies/<%=@firstMovie.id%>" class="active-item"><%= image_tag(@firstMovie.banner.url(:orig), :class => 'carouselImages')%><div class="carousel-caption"><h4><%=@firstMovie.title%></h4></div>
+   </a>
+   <%Movie.all.shuffle.each do |f|%>
+   		<a href="/movies/<%=f.id%>" class="item"><%= image_tag(f.banner.url(:orig), :class => 'carouselImages')%><div class="carousel-caption"><h4><%=f.title%></h4></div>
+   		</a>
+   <%end%>
+
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#Carousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#Carousel" data-slide="next">&rsaquo;</a>
+</div>
+
+</div>
+
+	<div class="navbar-inner"style="border-radius: 0px;width: inherit;margin-left: -21px;">
+		<div class="container">
+			<ul class="nav">
+				<li>
+					<%=link_to 'All Movies', movies_path, :class => "brand"%>
+				</li>
+				<li>
+					<%=link_to 'Specials', '#', :class => "brand"%>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="top5Box">
+	<center><h3>Top 5 Movies</h3></center>
+	
+		<div class="movieScrollPane">
+
+			<% if !@sortedMovies.blank? %>
+				<%if @sortedMovies.length >= 5 %>
+				  <% (0..4).each do |i| %>
+				    	<%=render @sortedMovies[i]%>
+				  <% end %>	
+				<%else%>
+					<% for item in @sortedMovies %>
+					    <%=render item%>
+					<% end %>
+				<%end%>
+
+		<% end %>
+		</div>
+	
+</div>
+
+<%# @movies.each do |movie| %>
+  <!--p><%#= link_to "Movies", movies_path%> <%#=link_to movie.title, movie %>
+  		<%#= render @movies %>
+  </p-->
+<%# end %>
+<footer>
+	
+</footer>

@@ -1,0 +1,11 @@
+<h1>Bookings</h1>
+<%if current_user.has_role? :user%>
+	<% @bookings.each do |t|%>
+		<%=t.id%>
+	<%end%>
+<%elsif current_user.has_role? :admin%>
+	<% @bookingsAdmin.each do |t|%>
+		<%=t.id%>
+	<%end%>
+<%end%>
+

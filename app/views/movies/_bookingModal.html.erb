@@ -1,0 +1,22 @@
+
+<h3>Pick your seats</h3>
+<center>
+	<table>
+		<% index = 0 %>
+		<% alpha = ['A', 'B','C', 'D','E','F','G','H','I','J','K','L','M','N','O']%>
+		<% (0..14).each do |r| %>
+	  		<tr>
+	  			<% (0..14).each do |c| %>
+	  				<td style="background-color:black;margin-right:1px;">
+	  					<button style="padding:0;width:32px;">
+	  						<%= alpha[r] + (c+1).to_s%>
+	  					</button>
+	  					
+	  				</td>
+			  			<%index = index + 1%>
+	  			<% end %>
+	  		</tr>		
+		<% end %>
+	</table>
+	<div style="width:inherit;background-color:white;color:black;">Screen</div>
+</center>

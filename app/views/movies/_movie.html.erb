@@ -1,0 +1,33 @@
+<%= link_to(movie) do %>
+<div class=" span12 movie">
+	<div class="span movie-thumb">
+		<%=image_tag(movie.poster.url(:thumb), :class=>"img-rounded" , :style => "margin-top:6px;")%>
+	</div>
+	<div class="span4" style="padding:0 0 0 0;">
+		<div>
+		<h5><%=movie.title%></h5>
+		</div>
+		<div>
+			<% if movie.description %>
+		<p style="line-height:1;"><%if movie.description.length > 402 %>
+				<%= movie.description[0,402] + "..."%>
+			<%else%>
+				<%= movie.description%>
+			<%end%>
+			<%end%>
+		</p>
+		</div>
+	</div>
+	<div class="span1" style="height:100%;">
+		<%= image_tag(movie.agerestriction.icon.url(:thumb)) %>
+		<% if movie.threeD %>
+			<%= image_tag("3d_image.png", :size => "100x95")%>
+		<%end%>
+		<%if user_signed_in? %>
+			
+		<%else%>
+			
+		<%end%>
+	</div>
+</div>
+<%end%>

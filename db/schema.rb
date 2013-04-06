@@ -11,7 +11,78 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130223195938) do
+ActiveRecord::Schema.define(:version => 20130321161901) do
+
+  create_table "agerestrictions", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+  end
+
+  create_table "bookings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "cine_id"
+    t.string   "movie_imdb_code"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "seat_id"
+    t.integer  "show_id"
+  end
+
+  create_table "cines", :force => true do |t|
+    t.integer  "rows"
+    t.integer  "columns"
+    t.integer  "movie_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "complaints", :force => true do |t|
+    t.integer  "booking_id"
+    t.text     "problem"
+    t.boolean  "resolved"
+    t.text     "issues"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "movies", :force => true do |t|
+    t.string   "title"
+    t.float    "rating"
+    t.integer  "views"
+    t.string   "trailer_url"
+    t.text     "description"
+    t.integer  "agerestriction_id",   :limit => 255
+    t.boolean  "threeD"
+    t.date     "release_date"
+    t.string   "genres"
+    t.time     "running_time"
+    t.string   "directed_by"
+    t.string   "produced_by"
+    t.text     "starring"
+    t.string   "imdb_code"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "poster_file_name"
+    t.string   "poster_content_type"
+    t.integer  "poster_file_size"
+    t.datetime "poster_updated_at"
+    t.string   "banner_file_name"
+    t.string   "banner_content_type"
+    t.integer  "banner_file_size"
+    t.datetime "banner_updated_at"
+  end
+
+  create_table "prices", :force => true do |t|
+    t.float    "amount"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +94,21 @@ ActiveRecord::Schema.define(:version => 20130223195938) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "seats", :force => true do |t|
+    t.integer  "cine_id"
+    t.string   "level"
+    t.integer  "row"
+    t.integer  "column"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "shows", :force => true do |t|
+    t.time     "starts"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

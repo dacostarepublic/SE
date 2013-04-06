@@ -31,7 +31,7 @@ SE::Application.configure do
     password: ENV["GMAIL_PASSWORD"]
   }
 
-
+  Paperclip.options[:command_path] = "/usr/bin/"
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

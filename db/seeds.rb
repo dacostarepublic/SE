@@ -16,3 +16,11 @@ puts 'DEFAULT USERS'
 user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
 puts 'user: ' << user.name
 user.add_role :admin
+puts 'DEFAULT MOVIES'
+m = Movie.create :title => "Click", :rating => 6.4, :views => 0, :trailer_url => "www.youtube.com/watch?v=PEJUn0KknFQ", :description => "A workaholic architect finds a universal remote that allows him to fast-forward and rewind to different parts of his life. Complications arise when the remote starts to overrule his choices.", :threeD => false, :release_date => "2006-06-26", :genres => ["Comedy", "Drama", "Fantasy"], :running_time => "01:46:00", :directed_by => "Frank Coraci", :starring => ["Adam Sandler", "Kate Beckinsale", "Christopher Walken"], :imdb_code => "tt0389860"
+puts 'movie: ' << m.title
+puts 'DEFAULT AGERESTRICTIONS'
+a = Agerestriction.create :name => "PG-13"
+m.agerestriction_id = a.id
+m.save
+puts '---COMPLETE---'

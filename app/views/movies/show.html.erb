@@ -1,0 +1,133 @@
+<div class="navbar navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container">
+			<div class="brandNoHover"><%= @movie.title %></div>
+			<ul class="nav">
+				<%if @movie.trailer_url %>
+				<a href="#trailer" role="button" class="btn btn-inverse" data-toggle="modal"><i class="icon-play icon-white"></i> Preview Trailer</a>
+				<%end%>
+				<a href="#booking" role="button" class="btn btn-inverse" data-toggle="modal"><i class="icon-ok icon-white"></i> Book</a>
+			</ul>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+	/*.show {
+		background:#000 url('<%= @movie.banner.url%>') no-repeat center top;background-size:100%;
+	}*/
+</style>
+<div class="span" style="background:#000 url('<%= @movie.banner.url%>') no-repeat center top;background-size:100%;border-radius:6px;">
+
+	
+	<div class="span3" style="background-color:rgba(0,0,0,0.8);">
+		<center>
+			<%= image_tag(@movie.poster.url(:medium), :class => "img-rounded img-polaroid", :style=>"margin-top:10px;")%>
+		</center>
+		
+		<center>
+			<p style="color:white;"><b><%=@movie.release_date.to_formatted_s(:long)%></b></p>
+		</center>
+		
+	</div>
+	<div class="span5 movieStuff">
+		<div class="movieInfo">
+			<div style="height:38px;width:inherit;color:grey;">
+				<%= image_tag(@movie.agerestriction.icon.url(:thumb)) %>
+				<% if @movie.threeD %>
+					<%= image_tag("3d_image.png", :size => "40x38", :style => "width:40px;height:38px;")%>
+				<%end%>
+				
+				Running Time:
+				 
+			</div>
+			<center style="height:62px;width:inherit;overflow-y:auto;color:grey;">
+				• <% @starring.shift %>
+				<% @starring.each do |f|%>
+					<%= f %> •
+				<%end%>
+			</center>
+			
+
+		</div>
+		<div class="movieDescription">
+			<%= @movie.description%>
+		</div>
+		
+
+		
+	</div>
+	
+
+</div>
+
+<div class="span3" style="">
+	<div class="span3" style="border-bottom:thin solid #2F2F2F; margin-bottom:5px;">
+		<b>Controls</b>		
+	</div>
+	<div class="span3">
+		<% if user_signed_in? %>
+			<% if current_user.has_role? :admin %>
+				<%= link_to raw('<i class="icon-edit"></i>'), edit_movie_path, :class => 'btn' %>
+				<%= link_to raw('<i class="icon-trash icon-white"></i>'), :movie, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+			<%end%>
+		<%end%>
+	</div>
+	
+</div>
+
+
+ 
+<!--Trailer Modal -->
+<div id="trailer" class="modal hide fade"  role="dialog" aria-labelledby="movieLabel" aria-hidden="true">
+  <div class="modal-header modal-header-inverse">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="movieLabel"><%= @movie.title%></h3>
+  </div>
+  <div class="modal-body modal-body-inverse">
+  	<%if @movie.trailer_url %>
+    <iframe id="youtubeVideo" width="520" height="291" src="<%= @movie.trailer_url.gsub('https','http').gsub('watch?v=', 'embed/')%>" frameborder="0" allowfullscreen></iframe>
+   <%end%>
+  </div>
+  <div class="modal-footer">
+    <!--button class="btn" data-dismiss="modal" aria-hidden="true">Close</button-->
+    <a href="#booking" role="button" class="btn btn-inverse" data-toggle="modal" style="color: #000; text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);"><i class="icon-ok"></i> Book</a>
+    
+  </div>
+</div>
+
+<!--Booking Modal-->
+<div id="booking" class="modal hide fade"  role="dialog" aria-labelledby="bookingLabel" aria-hidden="true">
+  <div class="modal-header modal-header-inverse">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="bookingLabel"><%= @movie.title%></h3>
+  </div>
+  <div class="modal-body modal-body-inverse">
+
+  	<%=render 'bookingModal' %>
+  	
+  	
+
+  </div>
+  <div class="modal-footer">
+    <!--button class="btn" data-dismiss="modal" aria-hidden="true">Close</button-->
+    <button class="btn btn-inverse" style="color: #000; text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);"><i class="icon-ok"></i><b> Book</b></button>
+  </div>
+</div>
+
+<%#= @movie.title %>
+<%#= @movie.rating %>
+<%#= @movie.views %>
+<%#= @movie.trailer_url %>
+<%#= @movie.description %>
+<%#= @movie.agerestriction_id %>
+<%#= @movie.threeD %>
+<%#= @movie.release_date %>
+<%#= @movie.genres %>
+<%#= @movie.running_time %>
+<%#= @movie.directed_by %>
+<%#= @movie.produced_by %>
+<%#= @movie.starring %>
+<%#= @movie.imdb_code %>
+<%#= @movie.created_at %>
+<%#= @movie.updated_at %>
+<%#= image_tag @movie.poster.url %>
